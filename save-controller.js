@@ -1,13 +1,18 @@
 export class SaveController {
-    constructor() {}
-
-    save(saveData) {
-        localStorage.setItem("save", saveData);
+    constructor(currentData = { health: 100, money: 0 }) {
+        this.currentData = currentData;
     }
 
-    load() {
-        let data = localStorage.getItem("save");
-        console.log(data);
-        return data;
+    save(file) {
+        localStorage.setItem(file, JSON.stringify(this.currentData));
+    }
+
+    load(file) {
+        this.currentData = JSON.parse(localStorage.getItem(file));
+        console.log(this.currentData);
+    }
+
+    updateData(stat, value) {
+        this.currentData[stat] = value;
     }
 }
