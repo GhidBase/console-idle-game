@@ -1,6 +1,6 @@
 export class SaveController {
-    constructor(currentData = { health: 100, money: 0 }) {
-        this.currentData = currentData;
+    constructor() {
+        this.currentData;
         this.defaultSaveFile = 1;
         this.currentSaveFile = 1;
         this.startup();
@@ -43,10 +43,20 @@ export class SaveController {
     }
 
     load() {
-        this.currentData = JSON.parse(
-            localStorage.getItem(this.currentSaveFile)
-        );
-        console.log(this.currentData);
+        let rawData = localStorage.getItem(this.currentSaveFile);
+        if (rawData && rawData != `undefined`) {
+            this.currentData = JSON.parse(rawData);
+            console.log(this.currentData);
+        } else {
+            console.log("no save file");
+            console.log("creating new save");
+            this.currentData = { player: { health: 100, money: 20 } };
+            this.save();
+        }
+    }
+
+    erase() {
+        localStorage.setItem(this.currentSaveFile, "");
     }
 
     updateData(stat, value) {
@@ -55,6 +65,11 @@ export class SaveController {
 
     updateAndSaveData(stat, value) {
         this.currentData[stat] = value;
+        this.save();
+    }
+
+    updateAndSavePlayerData(stat, value) {
+        this.currentData["player"][stat] = value;
         this.save();
     }
 
