@@ -13,3 +13,10 @@ Object.defineProperty(window, 'foo', {
       console.log("hello world")
   }
 });
+
+
+/*
+    ToDo:
+    - On startup, ask if the user would like to load the
+    save file in slot 1
+*/

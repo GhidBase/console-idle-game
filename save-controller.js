@@ -1,6 +1,14 @@
 export class SaveController {
     constructor(currentData = { health: 100, money: 0 }) {
         this.currentData = currentData;
+        this.startup()
+    }
+
+    startup() {
+        let defaultSave = localStorage.getItem(1);
+        if (defaultSave) {
+            console.log(defaultSave);
+        }
     }
 
     save(file) {
